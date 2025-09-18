@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>JS Crash Course Demo</title>
+    </head>
+    <body style="font-family: sans-serif; padding: 1rem">
+        <h1>JavaScript Crash Course Demo</h1>
+
+        <h2>1. Variables</h2>
+        <pre>
+            <code>
+            let count = 1;
+            const pi = 3.14159;
+            </code>
+        </pre>
+
+        <h2>2. Arrow Functions</h2>
+        <button id="arrowBtn">Run Arrow Function</button>
+
+        <h2>3. Arrays + map()</h2>
+        <div id="arrayDemo"></div>
+
+        <h2>4. Objects + Destructuring</h2>
+        <div id="objectDemo"></div>
+
+        <h2>5. Callbacks & Event Listeners</h2>
+        <button id="myBtn">Click me</button>
+
+        <h2>6. Rendering an Array of Objects</h2>
+        <div id="app"></div>
+
+        <script>
+            // --- 1. Variables ---
+            let count = 1;
+            count = 2;
+            const pi = 3.14159;
+            console.log('count:', count, 'pi:', pi);
+
+            // --- 2. Arrow Functions ---
+            function add(a, b) {
+                return a + b;
+            }
+            const addArrow = (a, b) => a + b;
+
+            document.getElementById('arrowBtn').addEventListener('click', () => {
+                alert(`2 + 3 = ${addArrow(2, 3)}`);
+            });
+
+            // --- 3. Arrays + map() ---
+            const numbers = [1, 2, 3, 4];
+            const doubled = numbers.map((n) => n * 2);
+            document.getElementById('arrayDemo').textContent = 'Doubled numbers: ' + doubled.join(', ');
+
+            // --- 4. Objects + Destructuring ---
+            const user = { id: 1, name: 'Alice', age: 25 };
+            const { name, age } = user;
+            document.getElementById('objectDemo').textContent = `User: ${name}, Age: ${age}`;
+
+            // --- 5. Callbacks & Event Listeners ---
+            function sayHello() {
+                alert('Hello!');
+            }
+            document.getElementById('myBtn').addEventListener('click', sayHello);
+
+            // --- 6. Rendering an Array of Objects ---
+            const users = [
+                { id: 1, name: 'Alice' },
+                { id: 2, name: 'Bob' },
+                { id: 3, name: 'Charlie' },
+            ];
+            const listItems = users.map((user) => `<li>${user.name}</li>`);
+            document.getElementById('app').innerHTML = `<ul>${listItems.join('')}</ul>`;
+        </script>
+    </body>
+</html>

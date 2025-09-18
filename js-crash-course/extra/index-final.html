@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="app"></div>
+        <script>
+            const users = [
+                { id: 1, name: 'Alice' },
+                { id: 2, name: 'Bob' },
+                { id: 3, name: 'Charlie' },
+            ];
+
+            const listItems = users.map((user) => `<li>${user.name}</li>`);
+            document.getElementById('app').innerHTML = `<ul>${listItems.join('')}</ul>`;
+
+            // Check if this API is working (create a instance of an API in MockAPI)
+            const BASE_URL = 'https://60946850a7e53a0017952aaf.mockapi.io/test/pedro/post1';
+
+            async function getAll() {
+                try {
+                    const response = await fetch(`${BASE_URL}/users`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.error('Error fetching users:', error);
+                    throw error;
+                }
+            }
+
+            getAll().then((result) => {
+                console.log(result);
+            });
+        </script>
+    </body>
+</html>
