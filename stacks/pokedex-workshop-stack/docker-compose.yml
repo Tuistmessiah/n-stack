@@ -14,11 +14,12 @@ services:
       - database
     environment:
       - DB_HOST=database
+      - CORS_ORIGIN=${CORS_ORIGIN:-}
   frontend:
     build:
       context: ./frontend
       args:
-        VITE_API_URL: "http://localhost:3002"
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:3002}
     extends:
       file: ./frontend/docker-compose.fe.yml
       service: frontend

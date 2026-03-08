@@ -30,7 +30,12 @@ if (DB_TYPE === 'postgres') {
 }
 
 const app = express();
-app.use(cors());
+// Allow frontend origin when deployed (e.g. VPS). Set CORS_ORIGIN to your frontend URL, or comma-separated list.
+const corsOrigin = (process.env.CORS_ORIGIN || '').trim();
+const corsOptions = corsOrigin
+  ? { origin: corsOrigin.split(',').map((o) => o.trim()).filter(Boolean), credentials: true }
+  : {}; // empty = allow all (local dev)
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get('/', (req, res) => {
