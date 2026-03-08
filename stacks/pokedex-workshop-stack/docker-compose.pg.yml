@@ -1,0 +1,29 @@
+# Full stack with PostgreSQL. Use: docker compose -f docker-compose.pg.yml up
+services:
+  database:
+    extends:
+      file: database/postgres/docker-compose.pg.yml
+      service: database
+  api:
+    build: ./api
+    extends:
+      file: ./api/docker-compose.api.yml
+      service: api
+    depends_on:
+      - database
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=database
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: "http://localhost:3002"
+    extends:
+      file: ./frontend/docker-compose.fe.yml
+      service: frontend
+    depends_on:
+      - api
+
+volumes:
+  postgres-data:

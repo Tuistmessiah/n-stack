@@ -1,0 +1,17 @@
+# Run from repo root: DB_TYPE=mongo docker compose -f api/docker-compose.api.yml up
+# Or from api/: docker compose -f docker-compose.api.yml up (uses mongo by default)
+services:
+  api:
+    build: .
+    ports:
+      - "3002:3002"
+    environment:
+      - DB_TYPE=${DB_TYPE:-mongo}
+      - DB_HOST=database
+      - PORT=3002
+    depends_on:
+      - database
+  database:
+    extends:
+      file: ../database/mongo/docker-compose.mongo.yml
+      service: database

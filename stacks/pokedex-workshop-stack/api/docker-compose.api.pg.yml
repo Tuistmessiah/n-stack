@@ -1,0 +1,16 @@
+# API + PostgreSQL only. Run from repo root: docker compose -f api/docker-compose.api.pg.yml up
+services:
+  api:
+    build: .
+    ports:
+      - "3002:3002"
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=database
+      - PORT=3002
+    depends_on:
+      - database
+  database:
+    extends:
+      file: ../database/postgres/docker-compose.pg.yml
+      service: database
